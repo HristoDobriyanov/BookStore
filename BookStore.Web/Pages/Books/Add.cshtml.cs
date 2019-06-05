@@ -7,6 +7,7 @@ using BookStore.Data;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Web.Pages.Books
@@ -33,25 +34,22 @@ namespace BookStore.Web.Pages.Books
         [Display(Name = "Image URL")]
         [Url]
         public string ImageUrl { get; set; }
-
-
-        public void OnPost()
+        
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
-                return;
+                return this.Page();
             }
 
-            var author = this.Context.Authors.FirstOrDefault(a => a.Name == this.Author);
+            var newBook = this.AddBook();
+            return this.RedirectToPage("/Books/Details", new {id = newBook.Id});
 
-            if (author == null)
-            {
-                this.Context.Authors.Add(new Author()
-                {
-                    Name = this.Author,
-                });
-                this.Context.SaveChanges();
-            }
+        }
+
+        private Book AddBook()
+        {
+            var author = this.CreateOrUpdateAuthor();
 
             var book = new Book
             {
@@ -63,6 +61,25 @@ namespace BookStore.Web.Pages.Books
 
             this.Context.Books.Add(book);
             this.Context.SaveChanges();
+            return book;
+        }
+
+        private Author CreateOrUpdateAuthor()
+        {
+            var author = this.Context.Authors
+                .FirstOrDefault(a => a.Name == this.Author);
+
+            if (author == null)
+            {
+                author = new Author()
+                {
+                    Name = this.Author
+                };
+                this.Context.Authors.Add(author);
+                this.Context.SaveChanges();
+            }
+
+            return author;
         }
     }
 }

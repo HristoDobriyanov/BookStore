@@ -1,0 +1,23 @@
+﻿@page "{id}"
+@model BookStore.Web.Pages.Books.DetailsModel
+@inject BookStore.Data.BookStoreDbContext context
+@{
+    ViewData["Title"] = "Details";
+  
+}
+
+<h2>@Model.Title</h2>
+<h5>by @Model.Author</h5>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <img src="@Model.ImageUrl" class="img-fluid" alt="Cover Image for @Model.Title" />
+        </div>
+        <div class="col-9">
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</div>
