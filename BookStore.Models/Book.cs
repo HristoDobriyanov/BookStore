@@ -19,7 +19,7 @@ namespace BookStore.Models
 
         public Author Author { get; set; }
 
-        public ICollection<Borrower> Borrowers { get; set; }
+        public ICollection<BorrowersBooks> Borrowers { get; set; }
 
     }
 }

@@ -17,4 +17,9 @@
     </PackageReference>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookStore.Data\BookStore.Data.csproj" />
+  </ItemGroup>
+
 </Project>
