@@ -16,6 +16,8 @@ namespace BookStore.Web.Pages.Books
             this.Context = context;
         }
 
+        public int Id { get; set; }
+
         public BookStoreDbContext Context { get; set; }
 
         public string Title { get; set; }
@@ -37,6 +39,7 @@ namespace BookStore.Web.Pages.Books
                 return this.NotFound();
             }
 
+            this.Id = book.Id;
             this.Title = book.Title;
             this.Description = book.Description;
             this.ImageUrl = book.CoverImage;
