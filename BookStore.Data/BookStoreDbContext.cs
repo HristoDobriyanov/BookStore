@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using System.Security.Principal;
+using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Data
@@ -16,6 +17,8 @@ namespace BookStore.Data
 
         public DbSet<Borrower> Borrowers { get; set; }
 
+        public DbSet<BorrowedBooks> BorrowedBooks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>()
@@ -28,7 +31,7 @@ namespace BookStore.Data
                 .WithOne(book => book.Borrower)
                 .HasForeignKey(b => b.BorrowerId);
 
-            modelBuilder.Entity<BorrowersBooks>()
+            modelBuilder.Entity<BorrowedBooks>()
                 .HasKey(b => new {b.BookId, b.BorrowerId});
 
             base.OnModelCreating(modelBuilder);

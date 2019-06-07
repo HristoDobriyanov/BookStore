@@ -10,6 +10,6 @@ namespace BookStore.Models
 
         public string Address { get; set; }
 
-        public ICollection<BorrowersBooks> BorrowedBooks { get; set; }
+        public ICollection<BorrowedBooks> BorrowedBooks { get; set; }
     }
 }

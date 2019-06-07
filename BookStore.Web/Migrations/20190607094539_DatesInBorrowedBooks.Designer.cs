@@ -4,14 +4,16 @@ using BookStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Web.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190607094539_DatesInBorrowedBooks")]
+    partial class DatesInBorrowedBooks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,23 +55,6 @@ namespace BookStore.Web.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BookStore.Models.BorrowedBooks", b =>
-                {
-                    b.Property<int>("BookId");
-
-                    b.Property<int>("BorrowerId");
-
-                    b.Property<DateTime?>("EndDate");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.HasKey("BookId", "BorrowerId");
-
-                    b.HasIndex("BorrowerId");
-
-                    b.ToTable("BorrowedBooks");
-                });
-
             modelBuilder.Entity("BookStore.Models.Borrower", b =>
                 {
                     b.Property<int>("Id")
@@ -85,6 +70,23 @@ namespace BookStore.Web.Migrations
                     b.ToTable("Borrowers");
                 });
 
+            modelBuilder.Entity("BookStore.Models.BorrowersBooks", b =>
+                {
+                    b.Property<int>("BookId");
+
+                    b.Property<int>("BorrowerId");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("BookId", "BorrowerId");
+
+                    b.HasIndex("BorrowerId");
+
+                    b.ToTable("BorrowersBooks");
+                });
+
             modelBuilder.Entity("BookStore.Models.Book", b =>
                 {
                     b.HasOne("BookStore.Models.Author", "Author")
@@ -93,7 +95,7 @@ namespace BookStore.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BookStore.Models.BorrowedBooks", b =>
+            modelBuilder.Entity("BookStore.Models.BorrowersBooks", b =>
                 {
                     b.HasOne("BookStore.Models.Book", "Book")
                         .WithMany("Borrowers")

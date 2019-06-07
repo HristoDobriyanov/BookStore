@@ -3,7 +3,7 @@
 @inject BookStore.Data.BookStoreDbContext context
 @{
     ViewData["Title"] = "Details";
-  
+
 }
 
 <h2>@Model.Title</h2>
@@ -19,8 +19,6 @@
         </div>
     </div>
 </div>
-<br/>
-@*TODO show only if needed!*@
-<div class="container-fluid " >
-    <button class="btn btn-lg btn-dark">Borrow the book</button>
-</div>
+<br />
+<a class="btn btn-dark" asp-page="/Books/Borrow" asp-route-id="@Model.Id">Borrow book</a>
+
