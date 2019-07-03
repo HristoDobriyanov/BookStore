@@ -1,4 +1,4 @@
 # BookStore
 Example Book Store
 
-You can easily populate the DB with the BookStoreDbScript.sql
+You can easily populate the DB with the BookStoreDbScript.sql script.
